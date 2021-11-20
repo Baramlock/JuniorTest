@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Signaling : MonoBehaviour
@@ -5,36 +7,39 @@ public class Signaling : MonoBehaviour
     [SerializeField] private AudioSource _audio;
     [SerializeField] float _volumeUpTime;
 
-    private bool _isSignaling;
-    private float a;
     private int _counterCollision;
+    private Coroutine _coroutineIncreaseVolume;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            a = 0;
-            _audio.Play();
+
             _counterCollision++;
-            if (_counterCollision % 2 == 0)
+            if (_counterCollision % 2 != 0)
             {
-                _audio.loop = false;
-                _audio.Stop();
-                
+                _audio.Play();
+                _audio.loop = true;
+                _coroutineIncreaseVolume = StartCoroutine(IncreaseVolume());
             }
             else
             {
-                _audio.loop = true;
+                _audio.Stop();
+                _audio.volume = 0;
+                StopCoroutine(_coroutineIncreaseVolume);
+                _audio.loop = false;
             }
         }
     }
 
-    private void Update()
+    private IEnumerator IncreaseVolume()
     {
-        if (_audio.isPlaying)
+        WaitForSeconds waitForSecond = new WaitForSeconds(1);
+        for (int i = 1; i < _volumeUpTime + 1; i++)
         {
-            a += Time.deltaTime;
-            _audio.volume = (a / _volumeUpTime);
+            Debug.Log(i);
+            _audio.volume = i / _volumeUpTime;
+            yield return waitForSecond;
         }
     }
 }
