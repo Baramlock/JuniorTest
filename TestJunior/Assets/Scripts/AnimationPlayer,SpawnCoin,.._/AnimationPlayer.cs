@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMove))]
@@ -27,7 +25,7 @@ public class AnimationPlayer : MonoBehaviour
             _animation.SetBool(AnimationPlayerControler.States.Walk, true);
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if(_userInput.DirectionHorizontal == -1)
+        else if (_userInput.DirectionHorizontal == -1)
         {
             _animation.SetBool(AnimationPlayerControler.States.Walk, true);
             transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -40,17 +38,21 @@ public class AnimationPlayer : MonoBehaviour
     private void SetBoolJump()
     {
         if (_playerMove.IsGrownded == false)
+        {
             _animation.SetBool(AnimationPlayerControler.States.Jump, true);
+        }
         else
+        {
             _animation.SetBool(AnimationPlayerControler.States.Jump, false);
+        }
     }
 
     public class AnimationPlayerControler
     {
         public class States
         {
-        public const string Walk = nameof(Walk);
-        public const string Jump = nameof(Jump);
+            public const string Walk = nameof(Walk);
+            public const string Jump = nameof(Jump);
         }
     }
 }

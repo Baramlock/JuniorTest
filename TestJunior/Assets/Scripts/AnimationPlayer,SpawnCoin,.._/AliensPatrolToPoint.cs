@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AliensPatrolToPoint : MonoBehaviour
@@ -21,13 +19,15 @@ public class AliensPatrolToPoint : MonoBehaviour
 
     private void Update()
     {
-        var target = _points[_currentPoint];
+        Transform target = _points[_currentPoint];
         transform.position = Vector2.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
         if ((Vector2)transform.position == (Vector2)target.position)
         {
             _currentPoint++;
             if (_currentPoint >= _points.Length)
+            {
                 _currentPoint = 0;
+            }
         }
     }
 }

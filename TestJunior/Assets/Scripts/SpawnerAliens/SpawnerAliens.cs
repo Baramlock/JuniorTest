@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerAliens : MonoBehaviour
@@ -20,7 +19,7 @@ public class SpawnerAliens : MonoBehaviour
         for (int i = 0; i < _point.childCount; i++)
         {
             yield return _waitForSeconds;
-            var newAliens = Instantiate(_aliens, _point.GetChild(i).transform.position, Quaternion.identity);
+            GameObject newAliens = Instantiate(_aliens, _point.GetChild(i).transform.position, Quaternion.identity);
         }
     }
 

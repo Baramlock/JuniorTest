@@ -1,26 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Signaling : MonoBehaviour
 {
     [SerializeField] private AudioSource _audio;
-    [SerializeField] float _volumeUpTime;
+    [SerializeField] private float _volumeUpTime;
 
     private int _counterCollision;
     private Coroutine _coroutineIncreaseVolume;
     private WaitForSeconds _waitForSecond;
 
-    private void Start()
-    {
-        _waitForSecond = new WaitForSeconds(1);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.TryGetComponent<Player>(out Player player))
         {
+            _waitForSecond = new WaitForSeconds(1);
 
             _counterCollision++;
             if (_counterCollision % 2 != 0)
