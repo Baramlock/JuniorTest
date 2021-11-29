@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(UserInput))]
 [RequireComponent(typeof(Rigidbody2D))]
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _strenghtHorizontal = 500;
     [SerializeField] private float _strenghtVertical = 200;

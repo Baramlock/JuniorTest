@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AliensPatrolToPoint : MonoBehaviour
+public class AliensPath : MonoBehaviour
 {
     [SerializeField] private Transform _path;
     [SerializeField] private float _speed = 5;

@@ -8,14 +8,11 @@ public class Signaling : MonoBehaviour
 
     private int _counterCollision;
     private Coroutine _coroutineIncreaseVolume;
-    private WaitForSeconds _waitForSecond;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            _waitForSecond = new WaitForSeconds(1);
-
             _counterCollision++;
             if (_counterCollision % 2 != 0)
             {
@@ -38,7 +35,7 @@ public class Signaling : MonoBehaviour
         for (int i = 1; i < _volumeUpTime + 1; i++)
         {
             _audio.volume = i / _volumeUpTime;
-            yield return _waitForSecond;
+            yield return new WaitForSeconds(1);
         }
     }
 }

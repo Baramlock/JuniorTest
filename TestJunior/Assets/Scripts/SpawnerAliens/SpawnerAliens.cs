@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpawnerAliens : MonoBehaviour
 {
-    [SerializeField] private GameObject _aliens;
+    [SerializeField] private GameObject _alien;
     [SerializeField] private Transform _point;
 
     private WaitForSeconds _waitForSeconds;
@@ -11,18 +11,17 @@ public class SpawnerAliens : MonoBehaviour
     private void Start()
     {
         _waitForSeconds = new WaitForSeconds(2);
-        StartCoroutine(Spawner());
+        StartCoroutine(SpawnAliens());
     }
 
-    private IEnumerator Spawner()
+    private IEnumerator SpawnAliens()
     {
         for (int i = 0; i < _point.childCount; i++)
         {
             yield return _waitForSeconds;
-            GameObject newAliens = Instantiate(_aliens, _point.GetChild(i).transform.position, Quaternion.identity);
+            GameObject newAliens = Instantiate(_alien, _point.GetChild(i).transform.position, Quaternion.identity);
         }
     }
-
 }
 
 
