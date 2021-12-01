@@ -19,16 +19,12 @@ public class AnimationPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_playerMove.IsGrownded)
-            SetBoolJump(false);
-        else
-            SetBoolJump(true);
-
         AnimatorControl();
     }
 
     private void AnimatorControl()
     {
+        _animation.SetBool(AnimationPlayerControler.States.Jump, _playerMove.IsGrownded == false);
         if (_userInput.DirectionHorizontal == 1)
         {
             _animation.SetBool(AnimationPlayerControler.States.Walk, true);
@@ -43,11 +39,6 @@ public class AnimationPlayer : MonoBehaviour
         {
             _animation.SetBool(AnimationPlayerControler.States.Walk, false);
         }
-    }
-
-    private void SetBoolJump(bool isJump)
-    {
-        _animation.SetBool(AnimationPlayerControler.States.Jump, isJump);
     }
 
     public class AnimationPlayerControler
