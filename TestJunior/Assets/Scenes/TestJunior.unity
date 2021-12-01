@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2567b552aa61764197c3e6aec5e795e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aliens: {fileID: 8042221089186326668, guid: 9f81c8b48fe0b094e90d51e125179783, type: 3}
+  _alien: {fileID: 1207158991}
   _point: {fileID: 4551996}
 --- !u!4 &4551996
 Transform:
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 859854616}
   - component: {fileID: 859854619}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Signaling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audio: {fileID: 859854619}
-  _volumeUpTime: 5
+  _soundChangeTime: 20
 --- !u!61 &859854616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2597,7 +2597,7 @@ GameObject:
   - component: {fileID: 1207158992}
   - component: {fileID: 1207158991}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Alien
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2612,7 +2612,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1207158990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dff2226301fb6c4abc565bebac1ca64, type: 3}
+  m_Script: {fileID: 11500000, guid: ef30801e211fa724fbc1fb018b0163d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &1207158992
@@ -2921,11 +2921,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7675817565122707291, guid: d48274dd040adb34c97ce9c466c6042a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.29
+      value: 16.64
       objectReference: {fileID: 0}
     - target: {fileID: 7675817565122707291, guid: d48274dd040adb34c97ce9c466c6042a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.48
+      value: 2.21
       objectReference: {fileID: 0}
     - target: {fileID: 7675817565122707291, guid: d48274dd040adb34c97ce9c466c6042a, type: 3}
       propertyPath: m_LocalPosition.z

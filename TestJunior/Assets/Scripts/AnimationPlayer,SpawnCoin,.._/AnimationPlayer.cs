@@ -1,28 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMove))]
+[RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(UserInput))]
 
 public class AnimationPlayer : MonoBehaviour
 {
     private Animator _animation;
-    private PlayerMove _playerMove;
+    private PlayerMovement _playerMove;
     private UserInput _userInput;
 
     private void Start()
     {
         _animation = GetComponent<Animator>();
-        _playerMove = GetComponent<PlayerMove>();
+        _playerMove = GetComponent<PlayerMovement>();
         _userInput = GetComponent<UserInput>();
     }
 
     private void FixedUpdate()
     {
-        if (_playerMove.IsGrownded == false)
-            SetBoolJump(true);
-        else
+        if (_playerMove.IsGrownded)
             SetBoolJump(false);
+        else
+            SetBoolJump(true);
 
         AnimatorControl();
     }
@@ -47,7 +47,7 @@ public class AnimationPlayer : MonoBehaviour
 
     private void SetBoolJump(bool isJump)
     {
-        _animation.SetBool(AnimationPlayerControler.States.Jump, true);
+        _animation.SetBool(AnimationPlayerControler.States.Jump, isJump);
     }
 
     public class AnimationPlayerControler

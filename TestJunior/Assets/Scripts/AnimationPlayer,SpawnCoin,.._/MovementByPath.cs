@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AliensPath : MonoBehaviour
+public class MovementByPath : MonoBehaviour
 {
     [SerializeField] private Transform _path;
     [SerializeField] private float _speed = 5;
