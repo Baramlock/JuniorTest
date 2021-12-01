@@ -27,7 +27,7 @@ public class Signaling : MonoBehaviour
             else
                 RestartCorutine(0);
             _counterCollision++;
-            
+
         }
     }
 
@@ -46,10 +46,12 @@ public class Signaling : MonoBehaviour
         while (true)
         {
             _audio.volume = Mathf.MoveTowards(_audio.volume, audioVolume, ((float)1 / _soundChangeTime));
-            if (_audio.volume == 0)
-                _audio.Stop();
-            yield return waitForSeconds;
-            yield return new WaitWhile(() => _audio.volume == audioVolume);
+            if (audioVolume == _audio.volume)
+            {
+                if (_audio.volume == 0)
+                    _audio.Stop();
+                yield break;
+            }
         }
     }
 }
