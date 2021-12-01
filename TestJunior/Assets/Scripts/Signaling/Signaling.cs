@@ -20,39 +20,36 @@ public class Signaling : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            _audio.Play();
+            if (_audio.isPlaying == false)
+                _audio.Play();
             if (_counterCollision % 2 == 0)
-                RestartCorutine(true);
+                RestartCorutine(1);
             else
-                RestartCorutine(false);
+                RestartCorutine(0);
             _counterCollision++;
+            
         }
     }
 
-    private void RestartCorutine(bool isIncrease)
+    private void RestartCorutine(float audioVolume)
     {
         if (_changeVolume != null)
             StopCoroutine(_changeVolume);
-        _changeVolume = StartCoroutine(ChangeSoundGradual(isIncrease));
+        _changeVolume = StartCoroutine(ChangeSoundGradual(audioVolume));
     }
 
-    private IEnumerator ChangeSoundGradual(bool isIncrease)
+    private IEnumerator ChangeSoundGradual(float audioVolume)
     {
-        WaitForSeconds _waitForSeconds = new WaitForSeconds(1);
+        audioVolume = Mathf.Clamp01(audioVolume);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(1);
 
         while (true)
         {
-            _audio.volume = Mathf.MoveTowards(_audio.volume, Convert.ToInt32(isIncrease), ((float)1 / _soundChangeTime));
-            if (_audio.volume <= 0)
-            {
+            _audio.volume = Mathf.MoveTowards(_audio.volume, audioVolume, ((float)1 / _soundChangeTime));
+            if (_audio.volume == 0)
                 _audio.Stop();
-                yield break;
-            }
-            if (_audio.volume >= 1)
-            {
-                yield break;
-            }
-            yield return _waitForSeconds;
+            yield return waitForSeconds;
+            yield return new WaitWhile(() => _audio.volume == audioVolume);
         }
     }
 }
