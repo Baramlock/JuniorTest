@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Signaling : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class Signaling : MonoBehaviour
 
     private int _counterCollision;
     private Coroutine _changeVolume;
-
+    
     private void Start()
     {
         _audio.volume = 0;
@@ -18,32 +20,28 @@ public class Signaling : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Player>(out Player player))
+        if (collision.TryGetComponent<Player>(out var player))
         {
             if (_audio.isPlaying == false)
                 _audio.Play();
-            if (_counterCollision % 2 == 0)
-                RestartCorutine(1);
-            else
-                RestartCorutine(0);
             _counterCollision++;
-
+            RestartCoroutines(_counterCollision % 2);
         }
     }
 
-    private void RestartCorutine(float audioVolume)
+    private void RestartCoroutines(float audioVolume)
     {
         if (_changeVolume != null)
             StopCoroutine(_changeVolume);
         _changeVolume = StartCoroutine(ChangeSoundGradual(audioVolume));
     }
-
+    
     private IEnumerator ChangeSoundGradual(float audioVolume)
     {
         audioVolume = Mathf.Clamp01(audioVolume);
-        WaitForSeconds waitForSeconds = new WaitForSeconds(1);
-
-        while (audioVolume != _audio.volume)
+        var waitForSeconds = new WaitForSeconds(1);
+        
+        while (Math.Abs(audioVolume - _audio.volume) > 0.01)
         {
             _audio.volume = Mathf.MoveTowards(_audio.volume, audioVolume, ((float)1 / _soundChangeTime));
             yield return waitForSeconds;

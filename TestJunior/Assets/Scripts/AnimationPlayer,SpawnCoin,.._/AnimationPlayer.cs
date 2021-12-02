@@ -41,7 +41,7 @@ public class AnimationPlayer : MonoBehaviour
         }
     }
 
-    public class AnimationPlayerControler
+    private class AnimationPlayerControler
     {
         public class States
         {
