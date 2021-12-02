@@ -43,15 +43,12 @@ public class Signaling : MonoBehaviour
         audioVolume = Mathf.Clamp01(audioVolume);
         WaitForSeconds waitForSeconds = new WaitForSeconds(1);
 
-        while (true)
+        while (audioVolume != _audio.volume)
         {
             _audio.volume = Mathf.MoveTowards(_audio.volume, audioVolume, ((float)1 / _soundChangeTime));
-            if (audioVolume == _audio.volume)
-            {
-                if (_audio.volume == 0)
-                    _audio.Stop();
-                yield break;
-            }
+            yield return waitForSeconds;
         }
+        if (_audio.volume == 0)
+            _audio.Stop();
     }
 }
