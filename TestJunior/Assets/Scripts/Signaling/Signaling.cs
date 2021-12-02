@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Signaling : MonoBehaviour
@@ -34,14 +33,14 @@ public class Signaling : MonoBehaviour
         _changeVolume = StartCoroutine(ChangeSoundGradual(audioVolume));
     }
 
-    private IEnumerator ChangeSoundGradual(float audioVolume)
+    private IEnumerator ChangeSoundGradual(float targetVolume)
     {
-        audioVolume = Mathf.Clamp01(audioVolume);
+        targetVolume = Mathf.Clamp01(targetVolume);
         var waitForSeconds = new WaitForSeconds(1);
         
-        while (Math.Abs(audioVolume - _audio.volume) > 0.01)
+        while (targetVolume == _audio.volume)
         {
-            _audio.volume = Mathf.MoveTowards(_audio.volume, audioVolume, ((float)1 / _soundChangeTime));
+            _audio.volume = Mathf.MoveTowards(_audio.volume, targetVolume, ((float)1 / _soundChangeTime));
             yield return waitForSeconds;
         }
         if (_audio.volume == 0)
