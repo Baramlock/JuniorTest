@@ -7,12 +7,13 @@ public class ReplacingText : MonoBehaviour
     [SerializeField] private TMP_Text _textTMP;
 
     private Coroutine _startCoroutine;
+    
     public void OnClickButton()
     {
-        _startCoroutine ??= StartCoroutine(ButtonChange());
+        _startCoroutine ??= StartCoroutine(ChangeButton());
     }
     
-    private IEnumerator ButtonChange()
+    private IEnumerator ChangeButton()
     {
         var originalText = _textTMP.text;
         var originalColor = _textTMP.color;
