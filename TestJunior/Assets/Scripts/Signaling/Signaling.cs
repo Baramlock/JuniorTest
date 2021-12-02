@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Signaling : MonoBehaviour
 {
@@ -20,7 +18,7 @@ public class Signaling : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Player>(out var player))
+        if (collision.TryGetComponent<Player>(out _))
         {
             if (_audio.isPlaying == false)
                 _audio.Play();
@@ -35,7 +33,7 @@ public class Signaling : MonoBehaviour
             StopCoroutine(_changeVolume);
         _changeVolume = StartCoroutine(ChangeSoundGradual(audioVolume));
     }
-    
+
     private IEnumerator ChangeSoundGradual(float audioVolume)
     {
         audioVolume = Mathf.Clamp01(audioVolume);
