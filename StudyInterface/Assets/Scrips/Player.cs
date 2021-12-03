@@ -2,38 +2,40 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Сharacteristics Сharacteristics { get; private set; }
+    public Healths Healths { get; private set; }
 
     private void Start()
     {
-        Сharacteristics = new Сharacteristics(200,100);
+        Healths = new Healths(200,100);
     }
 }
 
-public class Сharacteristics
+public class Healths
 {
-    public float MaxHealth { get; }
+    public readonly float MaxHealth;
+    public float Health { get; private set; }
 
-    private float _health;
-    public float Health
+    public Healths(float maxHealth, float health)
     {
-        get => _health;
-        private set => _health = value > MaxHealth ? MaxHealth : value;
-    }
-
-    public Сharacteristics(float maxHealth, float health)
-    {
-        MaxHealth = maxHealth;
-        Health = health;
+        MaxHealth = maxHealth <= 0 ? 100 : maxHealth;
+        Health = health < 0 && health > MaxHealth ? maxHealth : health;
     }
 
     public void TakeDamage(float damage)
     {
-        Health -= damage;
+        var tagDamage = damage > 0 ? damage : 0;
+        if (tagDamage > Health) 
+            Health = 0;
+        else 
+            Health -= tagDamage;
     }
 
     public void TakeHeal(float health)
     {
-        Health += health;
+        var tagHealth = health > 0 ? health : 0;
+        if (tagHealth > MaxHealth - Health)
+            Health = MaxHealth;
+        else
+            Health += tagHealth;
     }
 }
