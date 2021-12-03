@@ -3,26 +3,26 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public HealthPlayer HealthPlayer;
-    
+    public Сharacteristics Сharacteristics { get; private set; }
+
     private void Start()
     {
-        HealthPlayer = new HealthPlayer(200,100);
+        Сharacteristics = new Сharacteristics(200,100);
     }
 }
 
-public class HealthPlayer
+public class Сharacteristics
 {
     public float MaxHealth { get; }
 
     private float _health;
     public float Health
     {
-        get { return _health; }
-        set { _health = value > MaxHealth ? MaxHealth : value; }
+        get => _health;
+        private set => _health = value > MaxHealth ? MaxHealth : value;
     }
 
-    public HealthPlayer(float maxHealth, float health)
+    public Сharacteristics(float maxHealth, float health)
     {
         MaxHealth = maxHealth;
         Health = health;

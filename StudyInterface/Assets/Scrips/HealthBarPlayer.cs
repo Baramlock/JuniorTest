@@ -11,7 +11,7 @@ namespace Scrips
         [SerializeField] private Player _player;
         private void Update()
         {
-            _slider.DOValue(_player.HealthPlayer.Health / _player.HealthPlayer.MaxHealth, 1);
+            _slider.DOValue(_player.Сharacteristics.Health / _player.Сharacteristics.MaxHealth, 1);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Scrips
 
         public void OnClickButton()
         {
-            _player.HealthPlayer.TakeHeal(10);
+            _player.Сharacteristics.TakeHeal(10);
         }
     }
 }

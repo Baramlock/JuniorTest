@@ -6,6 +6,6 @@
 
         public void OnClickButton()
         {
-            _player.HealthPlayer.TakeDamage(10f);
+            _player.Сharacteristics.TakeDamage(10f);
         }
     }
