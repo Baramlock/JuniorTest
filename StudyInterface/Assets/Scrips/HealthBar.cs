@@ -9,15 +9,15 @@ public class HealthBar : MonoBehaviour
     
   private void OnEnable()
   {
-      _player.HealthChanger += HealthChanger;
+      _player.HealthChanged += ChangeHealth;
   }
 
   private void OnDisable()
   {
-      _player.HealthChanger -= HealthChanger;
+      _player.HealthChanged -= ChangeHealth;
   }
 
-  private void HealthChanger(float health)
+  private void ChangeHealth(float health)
   {
       _slider.DOValue(health / _player.MaxHealth, 1);
   }
