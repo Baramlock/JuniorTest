@@ -6,6 +6,6 @@ public class Treatment : MonoBehaviour
 
         public void OnClickButton()
         {
-            _player.Healths.TakeHeal(10);
+            _player.TakeHeal(10);
         }
     }

@@ -1,41 +1,42 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    public Healths Healths { get; private set; }
+    [Range(1,500)]
+    [SerializeField] private float _maxHealth = 100;
+    [Range(0,500)]
+    [SerializeField] private float _health = 100;
+    
+    public float MaxHealth => _maxHealth;
+    public float Health => _health;
+    public event UnityAction<float> HealthChanger;
 
     private void Start()
     {
-        Healths = new Healths(200,100);
-    }
-}
-
-public class Healths
-{
-    public readonly float MaxHealth;
-    public float Health { get; private set; }
-
-    public Healths(float maxHealth, float health)
-    {
-        MaxHealth = maxHealth <= 0 ? 100 : maxHealth;
-        Health = health < 0 && health > MaxHealth ? maxHealth : health;
+        HealthChanger?.Invoke(_health);
+        if (_health > _maxHealth) 
+            _health = _maxHealth;
     }
 
     public void TakeDamage(float damage)
     {
         var tagDamage = damage > 0 ? damage : 0;
-        if (tagDamage > Health) 
-            Health = 0;
+        if (tagDamage > _health) 
+            _health = 0;
         else 
-            Health -= tagDamage;
+            _health -= tagDamage;
+        HealthChanger?.Invoke(_health);
     }
 
     public void TakeHeal(float health)
     {
         var tagHealth = health > 0 ? health : 0;
-        if (tagHealth > MaxHealth - Health)
-            Health = MaxHealth;
+        if (tagHealth > _maxHealth - _health)
+            _health = _maxHealth;
         else
-            Health += tagHealth;
+            _health += tagHealth;
+        HealthChanger?.Invoke(_health);
     }
 }
+

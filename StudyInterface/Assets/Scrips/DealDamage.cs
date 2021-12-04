@@ -6,6 +6,6 @@ public class DealDamage : MonoBehaviour
 
     public void OnClickButton()
     {
-        _player.Healths.TakeDamage(10f);
+        _player.TakeDamage(10f);
     }
 }
