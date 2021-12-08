@@ -210,9 +210,7 @@ GameObject:
   - component: {fileID: 236676501}
   - component: {fileID: 236676500}
   - component: {fileID: 236676499}
-  - component: {fileID: 236676504}
   - component: {fileID: 236676503}
-  - component: {fileID: 236676505}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -317,32 +315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 466558911}
   _player: {fileID: 1897559288}
---- !u!114 &236676504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 236676498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55cb172d65c245da9e7d58a356cf6a10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 1897559288}
---- !u!114 &236676505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 236676498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb15a05be8694c40b3a9861eb92cd5fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 1897559288}
 --- !u!1 &319153923
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,15 +398,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 236676504}
-        m_TargetAssemblyTypeName: DealDamage, Assembly-CSharp
-        m_MethodName: OnClickButton
-        m_Mode: 1
+      - m_Target: {fileID: 1897559288}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1172,15 +1144,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 236676505}
-        m_TargetAssemblyTypeName: Scrips.Treatment, Assembly-CSharp
-        m_MethodName: OnClickButton
-        m_Mode: 1
+      - m_Target: {fileID: 1897559288}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: TakeHeal
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1332,7 +1304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 243
-  _health: 500
+  _health: 78
 --- !u!114 &1897559289
 MonoBehaviour:
   m_ObjectHideFlags: 0
