@@ -4,6 +4,8 @@ public class MoveState : State
 {
     private void Update()
     {
+        if (Target == null)
+            return;
         transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, Time.deltaTime * Enemy.Speed);
         if (transform.position.x - Target.transform.position.x > 0)
         {

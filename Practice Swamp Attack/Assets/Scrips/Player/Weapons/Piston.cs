@@ -1,14 +1,21 @@
 ﻿using UnityEngine;
 
-    public class Piston : Weapon
+public class Piston : Weapon
+{
+    public override void Attack(Transform shootPoint)
     {
-        public override void Attack()
+        const string attackPiston = PlayerAnimatorControl.States.AttackPiston;
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName(attackPiston) == false)
         {
-            const string attackPiston = PlayerAnimatorControl.Triggers.AttackPiston;
-            if (_animator.GetCurrentAnimatorStateInfo(0).IsName(attackPiston) ==false)
-            {
-                Instantiate(_bullet, transform.position, Quaternion.identity);
-                _animator.SetTrigger(attackPiston);
-            }
+
+            var newBullet = Instantiate(_bullet, shootPoint.position, Quaternion.identity);
+            newBullet.AddExtraDamage(Damage);
+            Animator.Play(attackPiston);
         }
     }
+
+    public override void PlayAnimation()
+    {
+        Animator.Play(PlayerAnimatorControl.States.Piston);
+    }
+}

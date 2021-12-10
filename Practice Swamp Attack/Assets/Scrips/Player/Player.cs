@@ -2,32 +2,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _health;
     [SerializeField] private Weapon _startWeapon;
+    [SerializeField] private Transform _shootPoint;
 
     public UnityAction<int> HealthChanger;
 
-    public int Money { get;private set; }
+    public int Money { get; private set; }
 
-    private List<Weapon> _weapons;
+    [SerializeField] private List<Weapon> _weapons;
+    private int _currentWeaponIndex;
     private Weapon _currentWeapon;
-
-
+    private Animator _animator;
 
     private void Start()
     {
-        _weapons = new List<Weapon>() {_startWeapon};
+        _animator = GetComponent<Animator>();
+        _weapons = new List<Weapon>() { _startWeapon};
+        _currentWeaponIndex = 0;
         _currentWeapon = _weapons[0];
+        _currentWeapon.Init(_animator);
         HealthChanger?.Invoke(_health);
     }
 
-    private void Update()
+    private void Update()   
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _currentWeapon.Attack();
+            _currentWeapon.Attack(_shootPoint);
         }
     }
 
@@ -45,5 +50,33 @@ public class Player : MonoBehaviour
     public void AddMoney(int money)
     {
         Money += money;
+    }
+
+    public void BuyWeapon(Weapon weapon)
+    {
+        Money -= weapon.Price;
+        _weapons.Add(weapon);
+    }
+
+    public void NextWeapon()
+    {
+        if (_currentWeaponIndex < _weapons.Count - 1)
+        {
+            ChangeWeapon(_currentWeaponIndex + 1);
+            _currentWeapon.Init(_animator);
+            _currentWeapon.PlayAnimation();
+        }
+        else
+        {
+            ChangeWeapon(0);
+            _currentWeapon.Init(_animator);
+            _currentWeapon.PlayAnimation();
+        }
+    }
+
+    private void ChangeWeapon(int index)
+    {
+        _currentWeaponIndex = index;
+        _currentWeapon = _weapons[index];
     }
 }

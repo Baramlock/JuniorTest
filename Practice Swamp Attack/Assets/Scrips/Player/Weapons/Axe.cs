@@ -1,43 +1,34 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Axe : Weapon
 {
-    private bool _isCollision;
-    private Enemy _target;
+    private ShootPoint _shootPoint;
 
-    private void Update()
+    public override void Attack(Transform shootPoint)
     {
-        LastAttackTime -= Time.deltaTime;
-    }
-
-    public override void Attack()
-    {
-        if (LastAttackTime < 0)
+        if (_shootPoint != null)
         {
-            _animator.Play(PlayerAnimatorControl.Triggers.AttackAxe);
-            LastAttackTime = Delay;
-            if (_isCollision)
+            Debug.Log("1");
+
+            if (LastAttackTime < 0)
             {
-                _target.ApplyDamage(Damage);
+                Animator.Play(PlayerAnimatorControl.States.AttackAxe);
+                LastAttackTime = Delay;
+                if (_shootPoint.IsCollision)
+                {
+                    _shootPoint.IsTarget.ApplyDamage(Damage);
+                }
             }
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<Enemy>(out var enemy))
+        else
         {
-            _isCollision = true;
-            _target = enemy;
+            Debug.Log("2");
+            _shootPoint = shootPoint.gameObject.GetComponent<ShootPoint>();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public override void PlayAnimation()
     {
-        if (collision.TryGetComponent<Enemy>(out var enemy))
-        {
-            _isCollision = false;
-        }
+        Animator.Play("Wait");
     }
 }

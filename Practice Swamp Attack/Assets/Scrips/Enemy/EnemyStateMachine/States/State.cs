@@ -50,4 +50,3 @@ public abstract class State : MonoBehaviour
         Animator = GetComponent<Animator>();
     }
 }
-

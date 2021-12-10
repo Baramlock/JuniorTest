@@ -5,10 +5,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private int _speed;
 
-    private void Start()
-    {
-        _damage += GetComponent<Piston>().Damage;
-    }
     private void Update()
     {
         transform.Translate(_speed * Time.deltaTime * Vector2.left);
@@ -19,6 +15,12 @@ public class Bullet : MonoBehaviour
         if (collision.TryGetComponent<Enemy>(out var enemy))
         {
             enemy.ApplyDamage(_damage);
+            Destroy(gameObject);
         }
+    }
+
+    public void AddExtraDamage(int damage)
+    {
+        _damage += damage;
     }
 }
