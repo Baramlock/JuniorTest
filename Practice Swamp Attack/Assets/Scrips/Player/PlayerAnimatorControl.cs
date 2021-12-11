@@ -12,5 +12,6 @@
         public const string AxeToGun = nameof(AxeToGun);
         public const string GunToAxe = nameof(GunToAxe);
         public const string Piston = nameof(Piston);
+        public const string AxeWait = "Wait";
     }
 }

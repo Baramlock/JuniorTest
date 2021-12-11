@@ -2,33 +2,21 @@
 
 public class Axe : Weapon
 {
-    private ShootPoint _shootPoint;
-
-    public override void Attack(Transform shootPoint)
+    public override void Attack()
     {
-        if (_shootPoint != null)
+        if (LastAttackTime < 0)
         {
-            Debug.Log("1");
-
-            if (LastAttackTime < 0)
+            Animator.Play(PlayerAnimatorControl.States.AttackAxe);
+            LastAttackTime = Delay;
+            if (ShootPoint.IsCollision)
             {
-                Animator.Play(PlayerAnimatorControl.States.AttackAxe);
-                LastAttackTime = Delay;
-                if (_shootPoint.IsCollision)
-                {
-                    _shootPoint.IsTarget.ApplyDamage(Damage);
-                }
+                ShootPoint.IsTarget.ApplyDamage(Damage);
             }
-        }
-        else
-        {
-            Debug.Log("2");
-            _shootPoint = shootPoint.gameObject.GetComponent<ShootPoint>();
         }
     }
 
     public override void PlayAnimation()
     {
-        Animator.Play("Wait");
+        Animator.Play(PlayerAnimatorControl.States.AxeWait);
     }
 }

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int _health;
     [SerializeField] private Weapon _startWeapon;
-    [SerializeField] private Transform _shootPoint;
+    [SerializeField] private UnityEngine.Transform _shootPoint;
 
     public UnityAction<int> HealthChanger;
 
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         _weapons = new List<Weapon>() { _startWeapon};
         _currentWeaponIndex = 0;
         _currentWeapon = _weapons[0];
-        _currentWeapon.Init(_animator);
+        _currentWeapon.Init(_animator,_shootPoint);
         HealthChanger?.Invoke(_health);
     }
 
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _currentWeapon.Attack(_shootPoint);
+            _currentWeapon.Attack();
         }
     }
 
@@ -63,13 +63,13 @@ public class Player : MonoBehaviour
         if (_currentWeaponIndex < _weapons.Count - 1)
         {
             ChangeWeapon(_currentWeaponIndex + 1);
-            _currentWeapon.Init(_animator);
+            _currentWeapon.Init(_animator,_shootPoint);
             _currentWeapon.PlayAnimation();
         }
         else
         {
             ChangeWeapon(0);
-            _currentWeapon.Init(_animator);
+            _currentWeapon.Init(_animator,_shootPoint);
             _currentWeapon.PlayAnimation();
         }
     }

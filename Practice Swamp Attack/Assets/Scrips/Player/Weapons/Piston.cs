@@ -2,15 +2,14 @@
 
 public class Piston : Weapon
 {
-    public override void Attack(Transform shootPoint)
+    public override void Attack()
     {
-        const string attackPiston = PlayerAnimatorControl.States.AttackPiston;
-        if (Animator.GetCurrentAnimatorStateInfo(0).IsName(attackPiston) == false)
+        if (LastAttackTime < 0)
         {
-
-            var newBullet = Instantiate(_bullet, shootPoint.position, Quaternion.identity);
+            var newBullet = Instantiate(_bullet, ShootPoint.transform.position, Quaternion.identity);
             newBullet.AddExtraDamage(Damage);
-            Animator.Play(attackPiston);
+            Animator.Play(PlayerAnimatorControl.States.AttackPiston);
+            LastAttackTime = Delay;
         }
     }
 

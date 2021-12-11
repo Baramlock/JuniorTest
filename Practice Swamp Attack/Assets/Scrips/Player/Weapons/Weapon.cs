@@ -12,21 +12,23 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected int Delay;
     [SerializeField] protected Bullet _bullet;
 
+    protected ShootPoint ShootPoint;
     protected float LastAttackTime;
+
     protected Animator Animator => _animator;
     public int Damage => _damage;
     public string Lable => _lable;
     public Sprite Icon => _icon;
     public int Price => _price;
     public bool IsBueyed => _isBueyed;
-
-    public abstract void Attack(Transform shootPoint);
+    public abstract void Attack();
 
     public void Buy() => _isBueyed = true;
 
-    public void Init(Animator animator)
+    public void Init(Animator animator, Transform shootPoint)
     {
         _animator = animator;
+        ShootPoint = shootPoint.GetComponent<ShootPoint>();
     }
 
     public abstract void PlayAnimation();

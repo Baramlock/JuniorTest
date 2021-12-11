@@ -29,8 +29,9 @@ public class Shop : MonoBehaviour
     {
         if (weapon.Price <= _player.Money)
         {
-            _player.BuyWeapon(weapon);
-            weapon.Buy();
+            var newWeapon = Instantiate(weapon, Vector3.zero, Quaternion.identity, _player.transform);
+            _player.BuyWeapon(newWeapon);
+            newWeapon.Buy();
             weaponView.SellButtonClick -= OnSellButtonClick;
             
         }
